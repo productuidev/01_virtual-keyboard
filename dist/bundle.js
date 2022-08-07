@@ -1,5 +1,2 @@
-(() => {
-  "use strict";
-  console.log(3);
-})();
+(()=>{"use strict";new class{#t;constructor(){this.#s(),this.#e()}#s(){this.#t=document.getElementById("switch")}#e(){this.#t.addEventListner("change",(t=>{console.log(t.target)}))}}})();
 //# sourceMappingURL=bundle.js.map
