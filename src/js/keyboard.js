@@ -2,7 +2,6 @@ export class Keyboard {
   #swichEl;
   #fontSelectEl;
   #containerEl;
-
   constructor() {
     this.#assignElement();
     this.#addEvent();
@@ -10,8 +9,8 @@ export class Keyboard {
 
   #assignElement() {
     this.#containerEl = document.getElementById("container");
-    this.#swichEl = document.#containerEl.querySelector("#switch");
-    this.#fontSelectEl = document.#containerEl.querySelector("#font");
+    this.#swichEl = this.#containerEl.querySelector("#switch");
+    this.#fontSelectEl = this.#containerEl.querySelector("#font");
   }
 
   #addEvent() {
