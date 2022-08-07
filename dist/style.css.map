@@ -1,0 +1,1 @@
+{"version":3,"file":"style.css","mappings":"AAAA,IAGE,uBAAwB,CACxB,SAAS,CAFT,YAAY,CADZ,WAIF","sources":["webpack://01_virtual-keyboard/./src/css/style.css"],"sourcesContent":["div {\r\n  width:100px;\r\n  height:100px;\r\n  background-color: orange;\r\n  color:red;\r\n}"],"names":[],"sourceRoot":""}
