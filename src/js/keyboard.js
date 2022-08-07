@@ -11,7 +11,11 @@ export class Keyboard {
 
   #addEvent() {
     this.#swichEl.addEventListener("change", (event) => {
-      console.log(event.target.checked);
+      // console.log(event.target.checked);
+      document.documentElement.setAttribute(
+        "theme",
+        event.target.checked ? "dark-mode" : ""
+      );
     });
   }
 }

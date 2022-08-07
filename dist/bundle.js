@@ -1,2 +1,2 @@
-(()=>{"use strict";new class{#t;constructor(){this.#s(),this.#e()}#s(){this.#t=document.getElementById("switch")}#e(){this.#t.addEventListner("change",(t=>{console.log(t.target)}))}}})();
+(()=>{"use strict";new class{#e;constructor(){this.#t(),this.#s()}#t(){this.#e=document.getElementById("switch")}#s(){this.#e.addEventListener("change",(e=>{document.documentElement.setAttribute("theme",e.target.checked?"dark-mode":"")}))}}})();
 //# sourceMappingURL=bundle.js.map
