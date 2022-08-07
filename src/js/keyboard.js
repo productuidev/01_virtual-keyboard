@@ -16,6 +16,12 @@ export class Keyboard {
   #addEvent() {
     this.#swichEl.addEventListener("change", this.#onChangeTheme);
     this.#fontSelectEl.addEventListener("change", this.#onChangeFont);
+    document.addEventListener("keydown", (event) => {
+      console.log("keydown");
+    });
+    document.addEventListener("keyup", (event) => {
+      console.log("keyup");
+    });
   }
 
   #onChangeTheme(event) {
