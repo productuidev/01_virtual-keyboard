@@ -22,32 +22,35 @@ export class Keyboard {
   #addEvent() {
     this.#swichEl.addEventListener("change", this.#onChangeTheme);
     this.#fontSelectEl.addEventListener("change", this.#onChangeFont);
-    document.addEventListener("keydown", (event) => {
-      // console.log("keydown");
-      // console.log(event.code);
-      // console.log(event.key, /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/.test(event.key));
-      this.#inputGroupEl.classList.toggle(
-        "error",
-        /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/.test(event.key)
-      );
+    document.addEventListener("keydown", this.#onKeyDown.bind(this));
+    document.addEventListener("keyup", this.#onKeyUp.bind(this));
+    this.#inputEl.addEventListener("input", this.#onInput);
+  }
 
-      this.#keyboardEl
-        .querySelector(`[data-code=${event.code}]`)
-        ?.classList.add("active"); // optional chaining
-    });
-    document.addEventListener("keyup", (event) => {
-      // console.log("keyup");
-      this.#keyboardEl
-        .querySelector(`[data-code=${event.code}]`)
-        ?.classList.remove("active"); // optional chaining
-    });
-    this.#inputEl.addEventListener("input", (event) => {
-      // console.log(event.target.value);
-      this.#inputEl.value = this.#inputEl.value.replace(
-        /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/,
-        ""
-      );
-    });
+  #onInput(event) {
+    // console.log(event.target.value);
+    event.target.value = event.target.value.replace(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/, "");
+  }
+
+  #onKeyDown(event) {
+    // console.log("keydown");
+    // console.log(event.code);
+    // console.log(event.key, /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/.test(event.key));
+    this.#inputGroupEl.classList.toggle(
+      "error",
+      /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/.test(event.key)
+    );
+
+    this.#keyboardEl
+      .querySelector(`[data-code=${event.code}]`)
+      ?.classList.add("active"); // optional chaining
+  }
+
+  #onKeyUp(event) {
+    // console.log("keyup");
+    this.#keyboardEl
+      .querySelector(`[data-code=${event.code}]`)
+      ?.classList.remove("active"); // optional chaining
   }
 
   #onChangeTheme(event) {
