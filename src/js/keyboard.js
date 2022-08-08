@@ -19,16 +19,22 @@ export class Keyboard {
     this.#swichEl.addEventListener("change", this.#onChangeTheme);
     this.#fontSelectEl.addEventListener("change", this.#onChangeFont);
     document.addEventListener("keydown", (event) => {
-      console.log(event.code);
-      this.#keyboardEl
-        .querySelector(`[data-code=${event.code}]`)
-        .classList.add("active");
+      // console.log("keydown");
+      // console.log(event.code);
+      // key code 찾으면 (치환)
+      if (this.#keyboardEl.querySelector(`[data-code=${event.code}]`)) {
+        this.#keyboardEl
+          .querySelector(`[data-code=${event.code}]`)
+          ?.classList.add("active"); // active 클래스 추가, optional chaining
+      }
     });
     document.addEventListener("keyup", (event) => {
       // console.log("keyup");
-      this.#keyboardEl
-        .querySelector(`[data-code=${event.code}]`)
-        .classList.remove("active");
+      if (this.#keyboardEl.querySelector(`[data-code=${event.code}]`)) {
+        this.#keyboardEl
+          .querySelector(`[data-code=${event.code}]`)
+          ?.classList.remove("active");
+      }
     });
   }
 
