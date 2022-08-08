@@ -3,6 +3,8 @@ export class Keyboard {
   #fontSelectEl;
   #containerEl;
   #keyboardEl;
+  #inputGroupEl;
+  #inputEl;
   constructor() {
     this.#assignElement();
     this.#addEvent();
@@ -13,6 +15,8 @@ export class Keyboard {
     this.#swichEl = this.#containerEl.querySelector("#switch");
     this.#fontSelectEl = this.#containerEl.querySelector("#font");
     this.#keyboardEl = this.#containerEl.querySelector("#keyboard");
+    this.#inputGroupEl = this.#containerEl.querySelector("#input-group");
+    this.#inputEl = this.#inputGroupEl.querySelector("#input");
   }
 
   #addEvent() {
@@ -21,6 +25,12 @@ export class Keyboard {
     document.addEventListener("keydown", (event) => {
       // console.log("keydown");
       // console.log(event.code);
+      // console.log(event.key, /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/.test(event.key));
+      this.#inputGroupEl.classList.toggle(
+        "error",
+        /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/.test(event.key)
+      );
+
       this.#keyboardEl
         .querySelector(`[data-code=${event.code}]`)
         ?.classList.add("active"); // optional chaining
@@ -30,6 +40,13 @@ export class Keyboard {
       this.#keyboardEl
         .querySelector(`[data-code=${event.code}]`)
         ?.classList.remove("active"); // optional chaining
+    });
+    this.#inputEl.addEventListener("input", (event) => {
+      // console.log(event.target.value);
+      this.#inputEl.value = this.#inputEl.value.replace(
+        /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/,
+        ""
+      );
     });
   }
 
