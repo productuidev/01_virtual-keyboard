@@ -26,12 +26,16 @@ export class Keyboard {
     document.addEventListener("keyup", this.#onKeyUp.bind(this));
     this.#inputEl.addEventListener("input", this.#onInput);
     this.#keyboardEl.addEventListener("mousedown", this.#onMouseDown);
-    document.addEventListener("mouseup", this.#onMouseUp);
+    document.addEventListener("mouseup", this.#onMouseUp.bind(this));
   }
 
-  #onMouseDown() {}
+  #onMouseUp() {
+    this.#keyboardEl.querySelector(".acitve")?.classList.remove("active");
+  }
 
-  #onMouseUp() {}
+  #onMouseDown() {
+    event.target.closest("div.key")?.classList.add("active");
+  }
 
   #onInput(event) {
     // console.log(event.target.value);
