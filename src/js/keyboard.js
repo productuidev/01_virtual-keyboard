@@ -33,7 +33,7 @@ export class Keyboard {
     this.#keyboardEl.querySelector(".acitve")?.classList.remove("active");
   }
 
-  #onMouseDown() {
+  #onMouseDown(event) {
     event.target.closest("div.key")?.classList.add("active");
   }
 
