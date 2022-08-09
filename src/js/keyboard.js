@@ -25,7 +25,13 @@ export class Keyboard {
     document.addEventListener("keydown", this.#onKeyDown.bind(this));
     document.addEventListener("keyup", this.#onKeyUp.bind(this));
     this.#inputEl.addEventListener("input", this.#onInput);
+    this.#keyboardEl.addEventListener("mousedown", this.#onMouseDown);
+    document.addEventListener("mouseup", this.#onMouseUp);
   }
+
+  #onMouseDown() {}
+
+  #onMouseUp() {}
 
   #onInput(event) {
     // console.log(event.target.value);
