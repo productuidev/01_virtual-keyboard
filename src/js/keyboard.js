@@ -29,7 +29,32 @@ export class Keyboard {
     document.addEventListener("mouseup", this.#onMouseUp.bind(this));
   }
 
-  #onMouseUp() {
+  #onMouseUp(event) {
+    const keyEl = event.target.closest("div.key"); // key element 가져오고
+
+    // optional chaining
+    // !undefined (true) !!undefined (false) (boolean으로 type casting)
+    const isActive = !!keyEl?.classList.contains("active"); // active 유무
+
+    // key val 확인
+    const val = keyEl?.dataset.val;
+
+    // mouse로 누른 key를 input에 입력되게
+    if (isActive && !!val && val !== "Space" && val !== "Backspace") {
+      this.#inputEl.value += val; // 원래 가지고 있던 value에 val을 넣는다
+    }
+
+    // Space
+    if (isActive && val === "Space") {
+      this.#inputEl.value += " ";
+    }
+
+    // Backspace
+    // 마지막 String을 잘라내기
+    if (isActive && val === "Backspace") {
+      this.#inputEl.value = this.#inputEl.value.slice(0, -1);
+    }
+
     this.#keyboardEl.querySelector(".acitve")?.classList.remove("active");
   }
 
