@@ -14,7 +14,7 @@ module.exports = {
   mode: "development", // 난독화 압축
   devServer: {
     host: "localhost",
-    port: 8080,
+    port: 4200,
     open: true,
     watchFiles: "index.html",
   },
@@ -38,6 +38,9 @@ module.exports = {
     ],
   },
   optimization: {
-    minimizer: [new TerserWebpackPlugin(), new CSSMinimizerPlugin()],
+    minimizer: [
+      new TerserWebpackPlugin(),
+      new CSSMinimizerPlugin()
+    ]
   },
 };

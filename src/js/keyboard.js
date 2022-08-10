@@ -5,6 +5,8 @@ export class Keyboard {
   #keyboardEl;
   #inputGroupEl;
   #inputEl;
+  #keyPress = false;
+  #mouseDown = false;
   constructor() {
     this.#assignElement();
     this.#addEvent();
@@ -25,40 +27,42 @@ export class Keyboard {
     document.addEventListener("keydown", this.#onKeyDown.bind(this));
     document.addEventListener("keyup", this.#onKeyUp.bind(this));
     this.#inputEl.addEventListener("input", this.#onInput);
-    this.#keyboardEl.addEventListener("mousedown", this.#onMouseDown);
+    this.#keyboardEl.addEventListener(
+      "mousedown",
+      this.#onMouseDown.bind(this)
+    );
     document.addEventListener("mouseup", this.#onMouseUp.bind(this));
   }
 
   #onMouseUp(event) {
+    // prevent
+    if (this.#keyPress) return;
+    this.#mouseDown = false;
+
     const keyEl = event.target.closest("div.key"); // key element 가져오고
-
-    // optional chaining
-    // !undefined (true) !!undefined (false) (boolean으로 type casting)
-    const isActive = !!keyEl?.classList.contains("active"); // active 유무
-
-    // key val 확인
-    const val = keyEl?.dataset.val;
+    const isActive = !!keyEl?.classList.contains("active"); // optional chaining, !undefined (true) !!undefined (false) (boolean으로 type casting), active 유무
+    const val = keyEl?.dataset.val; // key val 확인
 
     // mouse로 누른 key를 input에 입력되게
     if (isActive && !!val && val !== "Space" && val !== "Backspace") {
       this.#inputEl.value += val; // 원래 가지고 있던 value에 val을 넣는다
     }
-
     // Space
     if (isActive && val === "Space") {
       this.#inputEl.value += " ";
     }
-
-    // Backspace
-    // 마지막 String을 잘라내기
+    // Backspace (마지막 String을 잘라내기)
     if (isActive && val === "Backspace") {
       this.#inputEl.value = this.#inputEl.value.slice(0, -1);
     }
-
-    this.#keyboardEl.querySelector(".acitve")?.classList.remove("active");
+    this.#keyboardEl.querySelector(".active")?.classList.remove("active");
   }
 
   #onMouseDown(event) {
+    // prevent
+    if (this.#keyPress) return;
+    this.#mouseDown = true;
+
     event.target.closest("div.key")?.classList.add("active");
   }
 
@@ -68,6 +72,10 @@ export class Keyboard {
   }
 
   #onKeyDown(event) {
+    // prevent
+    if (this.#mouseDown) return;
+    this.#keyPress = true;
+
     // console.log("keydown");
     // console.log(event.code);
     // console.log(event.key, /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/.test(event.key));
@@ -82,6 +90,10 @@ export class Keyboard {
   }
 
   #onKeyUp(event) {
+    // prevent
+    if (this.#mouseDown) return;
+    this.#keyPress = false;
+
     // console.log("keyup");
     this.#keyboardEl
       .querySelector(`[data-code=${event.code}]`)
